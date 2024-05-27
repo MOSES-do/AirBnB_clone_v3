@@ -21,12 +21,28 @@ cls = ["Amenity", "City", "State", "Place", "Review", "User"]
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def get_status():
     """"return status of request"""
-    return jsonify({"status": "OK"})
+    data = {"status": "OK"}
+    res = jsonify(data)
+    res.status_code = 200
+    return res
 
 
 @app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def get_stat():
     """return table name and number of rows"""
+    data = {
+        "amenities": storage.count(Amenity),
+        "cities": storage.count(City),
+        "places": storage.count(Place),
+        "reviews": storage.count(Review),
+        "states": storage.count(State),
+        "users": storage.count(User),
+    }
+    resp = jsonify(data)
+    resp.status_code = 200
+
+    return resp
+    """
     tables = storage.table_names()
     all_tables = {}
     for x in range(len(cls)):
@@ -36,6 +52,6 @@ def get_stat():
         all_tables[tables[x]] = obj
     formatted_dict = "{\n"
     for table, count in all_tables.items():
-        formatted_dict += f'  "{table}": {count},\n'
-    formatted_dict = formatted_dict.rstrip(',\n') + "\n}\n"
-    return(formatted_dict)
+        formatted_dict += f'  "{table}": {count}\n'
+    res = formatted_dict.rstrip(',\n') + "\n}\n
+    return(res)"""
