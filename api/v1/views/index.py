@@ -18,18 +18,18 @@ class_map = {'Amenity': Amenity, 'City': City, 'State': State, 'Place': Place,
 cls = ["Amenity", "City", "State", "Place", "Review", "User"]
 
 
-@app_views.route('/status', methods=['GET'])
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
 def get_status():
     """"return status of request"""
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats', methods=['GET'])
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def get_stat():
     """return table name and number of rows"""
     tables = storage.table_names()
     all_tables = {}
-    for x in range(len(tables)):
+    for x in range(len(cls)):
         c = cls[x]
         class_name = class_map[c]
         obj = storage.count(class_name)

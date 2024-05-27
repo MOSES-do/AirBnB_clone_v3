@@ -6,8 +6,8 @@ from api.v1.views import app_views
 import os
 
 storage_t = os.environ.get('HBNB_TYPE_STORAGE')
-host = os.environ.get('HOST')
-port = os.environ.get('HBNB_API_PORT')
+host = os.environ.get('HOST', '0.0.0.0')
+port = os.environ.get('HBNB_API_PORT', 5000)
 
 """if storage_t == 'db':"""
 app = Flask(__name__)

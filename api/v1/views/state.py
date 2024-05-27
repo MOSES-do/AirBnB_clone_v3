@@ -1,14 +1,12 @@
 #!/usr/bin/python3
 """routes for states"""
-
-
 from flask import jsonify, abort
 from models import storage
 from models.state import State
 from api.v1.views import app_views
 
 
-@app_views.route('/states', methods=['GET'])
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def all_states():
     """list all states from storage"""
     list_state = ""
@@ -18,10 +16,10 @@ def all_states():
         list_state += f' {s[key].to_dict()},'
     list_state = list_state.rstrip(',\n') + "}"
     states = f"[{list_state}]"
-    return (states)
+    return states
 
 
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def single_state(state_id):
     """list state from storage based on id"""
     s = storage.all(State)
