@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""routes for web page to access table information"""
 from flask import jsonify
 from api.v1.views import app_views
 from models import storage
@@ -17,11 +18,13 @@ cls = ["Amenity", "City", "State", "Place", "Review", "User"]
 
 @app_views.route('/status', methods=['GET'])
 def get_status():
+    """"return status of request"""
     return jsonify({"status": "OK"})
 
 
 @app_views.route('/stats', methods=['GET'])
 def get_stat():
+    """return table name and number of rows"""
     tables = storage.table_names()
     all_tables = {}
     for x in range(len(tables)):

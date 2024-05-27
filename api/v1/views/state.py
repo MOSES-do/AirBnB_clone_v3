@@ -1,9 +1,9 @@
 #!/usr/bin/python3
+"""routes for states"""
 from flask import jsonify, abort
 from models import storage
 from models.state import State
 from api.v1.views import app_views
-"""routes fro states"""
 
 
 @app_views.route('/states', methods=['GET'])
