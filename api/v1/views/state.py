@@ -16,7 +16,7 @@ def all_states():
         list_state += f' {s[key].to_dict()},'
     list_state = list_state.rstrip(',\n') + "}"
     states = f"[{list_state}]"
-    return states
+    return jsonify(states)
 
 
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)

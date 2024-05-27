@@ -6,16 +6,6 @@ from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 from models.state import State
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.user import User
-
-
-class_map = {'Amenity': Amenity, 'City': City, 'State': State, 'Place': Place,
-             'Review': Review, 'User': User}
-cls = ["Amenity", "City", "State", "Place", "Review", "User"]
 
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
@@ -55,3 +45,9 @@ def get_stat():
         formatted_dict += f'  "{table}": {count}\n'
     res = formatted_dict.rstrip(',\n') + "\n}\n
     return(res)"""
+    """
+    class_map = {'Amenity': Amenity, 'City': City,
+                 'State': State, 'Place': Place,
+             'Review': Review, 'User': User}
+    cls = ["Amenity", "City", "State", "Place", "Review", "User"]
+    """
