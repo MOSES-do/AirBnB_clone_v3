@@ -16,3 +16,44 @@ def all_states():
     return jsonify(all_states)
 
 
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+def single_state(state_id):
+    """return state based on id"""
+    s = storage.all(State)
+    for key, value in s.items():
+        if value.id == state_id:
+            return(value.to_dict())
+        else:
+            abort(404, description="State not found")
+
+
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+def single_state(state_id):
+    """delete state based on id"""
+    entity = storage.get(State, str(state_id))
+    if entity is None:
+        abort(404, description="State not found")
+    storage.delete(entity)
+    storage.save()
+    return jsonify({})
+
+
+@app_views.route("/states/<state_id>",  methods=["PUT"], strict_slashes=False)
+def state_put(state_id):
+    """
+    updates specific State object by ID
+    return: state object and 200 on success, or 400 or 404 on failure
+    """
+    state_json = request.get_json(silent=True)
+    if state_json is None:
+        abort(400, 'Not a JSON')
+    found_obj = storage.get("State", str(state_id))
+    if found_obj is None:
+        abort(404)
+    for key, val in state_json.items():
+        """
+        cond: below is a key exclusion to ensure
+        id, created_at & updated_at don't get updated
+        """
+        if key not in ["id", "created_at", "updated_at"]:
+            setattr(found_obj, key, val)
