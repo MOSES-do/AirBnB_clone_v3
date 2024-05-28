@@ -16,17 +16,3 @@ def all_states():
     return jsonify(all_states)
 
 
-@app_views.route(
-                '/states/<state_id>', methods=['GET']
-                strict_slashes=False
-                )
-def single_state(state_id):
-    """return state based on id"""
-    s = storage.all(State)
-    for key, value in s.items():
-        if value.id == state_id:
-            return(value.to_dict())
-        else:
-            abort(404, description="State not found")
-
-
