@@ -72,13 +72,14 @@ class DBStorage:
 
     def get(self, cls, id):
         """Return object based on class_name and Id"""
-        if cls is not None and id is not None:
-            objs = self.__session.query(cls).all()
-            for obj in objs:
-                if eval(obj.__class__.__name__) == cls and id == obj.id:
-                    return (obj)
-                else:
-                    return None
+        for clss in classes:
+            if cls is classes[clss]:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    if eval(obj.__class__.__name__) == cls and id == obj.id:
+                        return (obj)
+                    else:
+                        return None
 
     def table_names(self):
         metadata = MetaData()

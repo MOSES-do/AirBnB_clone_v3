@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """routes for states and get state by id , put, update and delete"""
-from flask import jsonify, abort
+from flask import jsonify, abort, request
 from models import storage
 from models.state import State
 from api.v1.views import app_views
@@ -51,12 +51,11 @@ def single_state(state_id):
 def update_state(state_id):
     """
     updates specific State object by ID
-    return: state object and 200 on success, or 400 or 404 on failure
     """
     state_json = request.get_json(silent=True)
     if state_json is None:
         abort(400, 'Not a JSON')
-    found_obj = storage.get("State", str(state_id))
+    found_obj = storage.get(State, str(state_id))
     if found_obj is None:
         abort(404)
     for key, val in state_json.items():
@@ -66,6 +65,8 @@ def update_state(state_id):
         """
         if key not in ["id", "created_at", "updated_at"]:
             setattr(found_obj, key, val)
+    found_obj.save()
+    return jsonify(found_obj.to_dict())
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False, endpoint='del_state')
@@ -77,5 +78,3 @@ def del_state(state_id):
     storage.delete(entity)
     storage.save()
     return jsonify({})
-
-

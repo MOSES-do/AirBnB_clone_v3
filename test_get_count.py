@@ -17,8 +17,9 @@ print("All objects: {}".format(storage.count()))
 print("State objects: {}".format(storage.count(State)))
 
 first_state_id = list(storage.all(State).values())[0].id
-print("First state: {}".format(storage.get(State, "first_state_id")))
-
+print(type(first_state_id))
+print("First state: {}".format(storage.get(State, '07837f0f-50f9-473c-a0ef-8e17a3a64e59')))
+print(type(State), type(first_state_id))
 
 first_state_id = list(storage.all(State).values())[0].id
 state = storage.get(State, first_state_id)
