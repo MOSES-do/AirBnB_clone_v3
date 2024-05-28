@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""routes for states"""
+"""routes for states and get state by id , put, update and delete"""
 from flask import jsonify, abort
 from models import storage
 from models.state import State
@@ -67,7 +67,7 @@ def state_put(state_id):
         if key not in ["id", "created_at", "updated_at"]:
             setattr(fetched_obj, key, val)
     fetched_obj.save()
-    return jsonify(fetched_obj.to_json())
+    return jsonify(fetched_obj.to_dict())
 
 
 @app_views.route("/states/<state_id>", methods=["DELETE"],
