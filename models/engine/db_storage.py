@@ -64,27 +64,21 @@ class DBStorage:
             """print(len(all_obj))"""
             return count
         else:
-            for clss in classes:
-                if cls is classes[clss]:
-                    objs = self.__session.query(classes[clss]).all()
-                    for obj in objs:
-                        if eval(obj.__class__.__name__) == cls:
-                            all_obj.append(obj)
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                if eval(obj.__class__.__name__) == cls:
+                    all_obj.append(obj)
             return len(all_obj)
 
     def get(self, cls, id):
         """Return object based on class_name and Id"""
         if cls is not None and id is not None:
-            for clss in classes:
-                if cls is classes[clss]:
-                    objs = self.__session.query(classes[clss]).all()
-                    for obj in objs:
-                        if eval(obj.__class__.__name__) == cls and id == obj.id:
-                            return (obj)
-                        else:
-                            return None
-        else:
-            return
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                if eval(obj.__class__.__name__) == cls and id == obj.id:
+                    return (obj)
+                else:
+                    return None
 
     def table_names(self):
         metadata = MetaData()
@@ -95,7 +89,6 @@ class DBStorage:
                 table_obj = Table(
                     table_name, metadata, autoload_with=self.__engine
                 )
-                """count = self.__engine.execute(table_obj.count()).scalar()"""
                 if table_name == "place_amenity":
                     continue
                 else:
@@ -118,7 +111,9 @@ class DBStorage:
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        sess_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False
+        )
         Session = scoped_session(sess_factory)
         self.__session = Session
 

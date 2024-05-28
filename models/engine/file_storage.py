@@ -44,15 +44,12 @@ class FileStorage:
         return len(self.__objects)
 
     def get(self, cls, id):
-        if cls is not None and id is not None:
-            new_dict = {}
+        if cls is not None:
             for key, value in self.__objects.items():
                 if cls == value.__class__ and id == value.id:
                     return value
                 else:
                     return None
-        else:
-            return
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
