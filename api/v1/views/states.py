@@ -8,9 +8,9 @@ from api.v1.views import app_views
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def all_states():
+    """get all states from strage"""
     all_states = []
     s = storage.all(State)
-    """id = "1e3c6ba9-8739-452a-b7e4-b82007e76d4f"""
     for obj in s.values():
         all_states.append(obj.to_dict())
     return jsonify(all_states)
