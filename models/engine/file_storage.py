@@ -51,7 +51,8 @@ class FileStorage:
                     return value
                 else:
                     return None
-        return None
+        else:
+            return
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
