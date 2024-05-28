@@ -84,6 +84,7 @@ class DBStorage:
         metadata = MetaData()
         metadata.reflect(bind=self.__engine)
         cls = []
+        table_list = []
         with self.__engine.connect() as connection:
             for table_name, table in metadata.tables.items():
                 table_obj = Table(
@@ -93,7 +94,8 @@ class DBStorage:
                     continue
                 else:
                     cls.append(table_name)
-            return cls
+        cls.sort(key=str.lower)
+        return cls
 
     def new(self, obj):
         """add the object to the current database session"""
