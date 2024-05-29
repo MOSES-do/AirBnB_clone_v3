@@ -32,7 +32,6 @@ def create_user():
         abort(400, 'Missing password')
 
     new_user = User(**user_json)
-    new_user.new()
     new_user.save()
     res = jsonify(new_user.to_dict())
     res.status_code = 201
