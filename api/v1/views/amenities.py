@@ -57,7 +57,7 @@ def update_amenity(amenity_id):
     amenity_json = request.get_json(silent=True)
     if amenity_json is None:
         abort(400, 'Not a JSON')
-    amenity_obj = storage.get(Amenity, str(amenity_id))
+    amenity_obj = storage.get(Amenity, amenity_id)
     if amenity_obj is None:
         abort(404)
     for key, val in amenity_json.items():
