@@ -77,7 +77,7 @@ def update_user(user_id):
                  strict_slashes=False, endpoint='del_user')
 def del_user(user_id):
     """delete user based on id"""
-    entity = storage.get(User, user_id)
+    entity = storage.get(User, str(user_id))
     if entity is None:
         abort(404, description="State not found")
     storage.delete(entity)
