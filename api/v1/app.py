@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """register blueprint of routes to main application"""
 from flask import Flask, make_response, jsonify
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 import os
