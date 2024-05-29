@@ -15,7 +15,6 @@ def all_places(city_id):
     """get all places from storage"""
     all_places = []
     entity = storage.get(City, city_id)
-    print(entity)
     if entity is None:
         abort(404)
     for place in entity.places:
