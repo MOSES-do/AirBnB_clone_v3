@@ -21,7 +21,9 @@ def all_cities(state_id):
     return jsonify(all_cities)
 
 
-@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False, endpoint='single_city')
+@app_views.route('/cities/<city_id>',
+                 methods=['GET'], strict_slashes=False,
+                 endpoint='single_city')
 def single_city(city_id):
     """return state based on id"""
     s = storage.all(City)
@@ -31,7 +33,9 @@ def single_city(city_id):
     abort(404, description="State not found")
 
 
-@app_views.route("/states/<state_id>/cities", methods=["POST"], strict_slashes=False, endpoint='city_create')
+@app_views.route("/states/<state_id>/cities",
+                 methods=["POST"], strict_slashes=False,
+                 endpoint='city_create')
 def city_create(state_id):
     """
     return: newly created state obj
@@ -54,7 +58,9 @@ def city_create(state_id):
     return res
 
 
-@app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False, endpoint='del_city')
+@app_views.route('/cities/<city_id>',
+                 methods=['DELETE'], strict_slashes=False,
+                 endpoint='del_city')
 def del_city(city_id):
     """delete city based on id"""
     entity = storage.get(City, city_id)
@@ -65,7 +71,9 @@ def del_city(city_id):
     return jsonify({})
 
 
-@app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False, endpoint='update_city')
+@app_views.route("/cities/<city_id>",
+                 methods=["PUT"], strict_slashes=False,
+                 endpoint='update_city')
 def update_city(city_id):
     """
     updates specific State object by ID
