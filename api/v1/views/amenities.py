@@ -21,7 +21,6 @@ def all_amenities():
                  strict_slashes=False, endpoint='create_amenity')
 def create_amenity():
     """
-    create amenity route
     :return: newly created amenity obj
     """
     amenity_json = request.get_json(silent=True)
@@ -51,14 +50,14 @@ def single_amenity(amenity_id):
 
 @app_views.route("/amenities/<amenity_id>", methods=["PUT"],
                  strict_slashes=False, endpoint='update_amenity')
-def update_state(amenity_id):
+def update_amenity(amenity_id):
     """
     updates specific Amenity object by ID
     """
     amenity_json = request.get_json(silent=True)
     if amenity_json is None:
         abort(400, 'Not a JSON')
-    amenity_obj = storage.get(Amenity, str(state_id))
+    amenity_obj = storage.get(Amenity, str(amenity_id))
     if amenity_obj is None:
         abort(404)
     for key, val in amenity_json.items():
@@ -67,7 +66,7 @@ def update_state(amenity_id):
         id, created_at & updated_at don't get updated
         """
         if key not in ["id", "created_at", "updated_at"]:
-            setattr(found_obj, key, val)
+            setattr(amenity_obj, key, val)
     amenity_obj.save()
     return jsonify(amenity_obj.to_dict())
 
