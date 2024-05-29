@@ -6,7 +6,8 @@ from models.state import State
 from api.v1.views import app_views
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False, endpoint='all_state')
+@app_views.route('/states', methods=['GET'],
+                 strict_slashes=False, endpoint='all_state')
 def all_states():
     """get all states from strage"""
     all_states = []
@@ -16,7 +17,8 @@ def all_states():
     return jsonify(all_states)
 
 
-@app_views.route("/states", methods=["POST"], strict_slashes=False, endpoint='state_create')
+@app_views.route("/states", methods=["POST"],
+                 strict_slashes=False, endpoint='state_create')
 def state_create():
     """
     create state route
@@ -36,7 +38,8 @@ def state_create():
     return res
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False, endpoint='single_state')
+@app_views.route('/states/<state_id>', methods=['GET'],
+                 strict_slashes=False, endpoint='single_state')
 def single_state(state_id):
     """return state based on id"""
     s = storage.all(State)
@@ -47,7 +50,8 @@ def single_state(state_id):
             abort(404, description="State not found")
 
 
-@app_views.route("/states/<state_id>", methods=["PUT"], strict_slashes=False, endpoint='update_state')
+@app_views.route("/states/<state_id>", methods=["PUT"],
+                 strict_slashes=False, endpoint='update_state')
 def update_state(state_id):
     """
     updates specific State object by ID
@@ -69,7 +73,8 @@ def update_state(state_id):
     return jsonify(found_obj.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False, endpoint='del_state')
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False, endpoint='del_state')
 def del_state(state_id):
     """delete state based on id"""
     entity = storage.get(State, str(state_id))
