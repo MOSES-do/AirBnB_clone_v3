@@ -44,7 +44,7 @@ def single_amenity(amenity_id):
     s = storage.all(Amenity)
     for key, value in s.items():
         if value.id == amenity_id:
-            return(value.to_dict())
+            return jsonify(value.to_dict())
     abort(404, description="State not found")
 
 
