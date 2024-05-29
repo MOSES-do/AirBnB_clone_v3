@@ -3,6 +3,7 @@
 """
 from models import storage
 from models.state import State
+from models.user import User
 
 
 """
@@ -12,7 +13,7 @@ first_state_id = list(storage.all(State).values())[0].id
 print(f"test-file{first_state_id}")
 print("First state: {}".format(storage.get(State, first_state_id)))"""
 
-
+"""
 print("All objects: {}".format(storage.count()))
 print("State objects: {}".format(storage.count(State)))
 
@@ -20,13 +21,15 @@ first_state_id = list(storage.all(State).values())[0].id
 print(type(first_state_id))
 print("First state: {}".format(storage.get(State, '07837f0f-50f9-473c-a0ef-8e17a3a64e59')))
 print(type(State), type(first_state_id))
+"""
 
-first_state_id = list(storage.all(State).values())[0].id
-state = storage.get(State, first_state_id)
+first_state_id = list(storage.all(User).values())[0].id
+print(first_state_id)
+"""state = storage.get(State, first_state_id)
 if state is None:
     print("None", end="")
 else:
-    print("Get shouldn't return an object if the ID doesn't exist", end="")
+    print("Get shouldn't return an object if the ID doesn't exist", end="")"""
 
 
 
