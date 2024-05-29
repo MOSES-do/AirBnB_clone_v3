@@ -26,12 +26,13 @@ def create_user():
     user_json = request.get_json(silent=True)
     if user_json is None:
         abort(400, 'Not a JSON')
-    if "email" not in state_json:
+    if "email" not in user_json:
         abort(400, 'Missing email')
-    if "password" not in state_json:
+    if "password" not in user_json:
         abort(400, 'Missing password')
 
     new_user = User(**user_json)
+    new_user.new()
     new_user.save()
     res = jsonify(new_user.to_dict())
     res.status_code = 201
@@ -77,7 +78,7 @@ def update_user(user_id):
                  strict_slashes=False, endpoint='del_user')
 def del_user(user_id):
     """delete user based on id"""
-    entity = storage.get(User, str(user_id))
+    entity = storage.get(User, user_id)
     if entity is None:
         abort(404, description="State not found")
     storage.delete(entity)

@@ -30,6 +30,7 @@ def create_amenity():
         abort(400, 'Missing name')
 
     new_amenity = Amenity(**amenity_json)
+    new_amenity.new()
     new_amenity.save()
     res = jsonify(new_amenity.to_dict())
     res.status_code = 201
