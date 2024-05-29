@@ -9,7 +9,7 @@ from api.v1.views import app_views
 @app_views.route('/amenities', methods=['GET'],
                  strict_slashes=False, endpoint='all_amenities')
 def all_amenities():
-    """get all states from strage"""
+    """get all amenities from strage"""
     all_amenitys = []
     s = storage.all(Amenity)
     for obj in s.values():
@@ -26,7 +26,7 @@ def create_amenity():
     amenity_json = request.get_json(silent=True)
     if amenity_json is None:
         abort(400, 'Not a JSON')
-    if "name" not in state_json:
+    if "name" not in amenity_json:
         abort(400, 'Missing name')
 
     new_amenity = Amenity(**amenity_json)
@@ -75,7 +75,8 @@ def update_amenity(amenity_id):
                  strict_slashes=False, endpoint='del_amenity')
 def del_amenity(amenity_id):
     """delete state based on id"""
-    entity = storage.get(Amenity, str(amenity_id))
+    entity = storage.get(Amenity, amenity_id)
+    print(entity)
     if entity is None:
         abort(404, description="State not found")
     storage.delete(entity)
