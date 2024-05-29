@@ -66,7 +66,7 @@ def update_amenity(user_id):
         cond: below is a key exclusion to ensure
         id, created_at & updated_at don't get updated
         """
-        if key not in ["id", "email",  "created_at", "updated_at"]:
+        if key not in ["id", "created_at", "updated_at", "email"]:
             setattr(user_obj, key, val)
     amenity_obj.save()
     return jsonify(user_obj.to_dict())
@@ -76,7 +76,7 @@ def update_amenity(user_id):
                  strict_slashes=False, endpoint='del_user')
 def del_user(user_id):
     """delete user based on id"""
-    entity = storage.get(User, str(user_id))
+    entity = storage.get(User, user_id)
     if entity is None:
         abort(404, description="State not found")
     storage.delete(entity)
