@@ -10,10 +10,11 @@ from api.v1.views import app_views
 @app_views.route('/cities/<city_id>/places',
                  methods=['GET'], strict_slashes=False,
                  endpoint='all_places')
-def all_places(state_id):
+def all_places(city_id):
     """get all places from storage"""
     all_places = []
     entity = storage.get(City, city_id)
+    print(entity)
     if entity is None:
         abort(404)
     for place in entity.places:
@@ -24,11 +25,11 @@ def all_places(state_id):
 @app_views.route('/places/<place_id>',
                  methods=['GET'], strict_slashes=False,
                  endpoint='single_place')
-def single_place(city_id):
+def single_place(place_id):
     """return place based on id"""
     s = storage.all(Place)
     for key, value in s.items():
-        if value.id == city_id:
+        if value.id == place_id:
             return jsonify(value.to_dict())
     abort(404, description="State not found")
 
@@ -73,11 +74,10 @@ def del_city(place_id):
 @app_views.route("/cities/city_id/places",
                  methods=["POST"], strict_slashes=False,
                  endpoint='place_create')
-def place_create(state_id):
+def place_create(city_id):
     """
     return: newly created state obj
     """
-    entity = storage.get(Place, stat_id)
     place_json = request.get_json(silent=True)
 
     if place_json is None:
