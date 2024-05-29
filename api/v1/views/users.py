@@ -38,6 +38,7 @@ def create_user():
 
     return res
 
+
 @app_views.route('/users/<user_id>', methods=['GET'],
                  strict_slashes=False, endpoint='single_user')
 def single_user(user_id):
@@ -51,7 +52,7 @@ def single_user(user_id):
 
 @app_views.route("/users/<user_id>", methods=["PUT"],
                  strict_slashes=False, endpoint='update_user')
-def update_amenity(user_id):
+def update_user(user_id):
     """
     update user object by ID
     """
@@ -68,7 +69,7 @@ def update_amenity(user_id):
         """
         if key not in ["id", "created_at", "updated_at", "email"]:
             setattr(user_obj, key, val)
-    amenity_obj.save()
+    user_obj.save()
     return jsonify(user_obj.to_dict())
 
 
