@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""routes for states and get state by id , put, update and delete"""
+"""routes for places  and get place by id , put, update and delete"""
 from flask import jsonify, abort, request
 from models import storage
 from models.place import Place

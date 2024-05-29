@@ -98,4 +98,3 @@ def create_review(place_id):
     res.status_code = 201
 
     return res
-~                                                                                                                                                   ~                                                                                                                                                   ~                   
