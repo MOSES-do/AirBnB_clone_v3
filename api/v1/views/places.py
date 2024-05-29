@@ -92,9 +92,9 @@ def place_create(state_id):
         abort(400, 'Missing name')
 
     place_json["city_id"] = city_id
-    new_city = City(**city_json)
-    new_city.save()
-    res = jsonify(new_city.to_dict())
+    new_place = Place(**place_json)
+    new_place.save()
+    res = jsonify(new_place.to_dict())
     res.status_code = 201
 
     return res
